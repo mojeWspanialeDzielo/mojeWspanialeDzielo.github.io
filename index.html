@@ -1,0 +1,79 @@
+<div id="screen"></div>
+<div id="images">
+	<img src="https://images-ssl.gotinder.com/5a8c7d61d669ae6763ebf117/640x640_5d54c80d-6391-401a-b170-b6b0cf3c9e1e.jpg">
+	<img src="https://images-ssl.gotinder.com/5a8c7d61d669ae6763ebf117/640x640_eeab8b28-ea46-4543-8431-babb881fd88f.jpg">
+	<img src="https://images-ssl.gotinder.com/5a8c7d61d669ae6763ebf117/640x640_2daf3db9-2473-4e1b-8311-69ab8a0fac8e.jpg">
+	<img src="https://cdn.cnn.com/cnnnext/dam/assets/150929101049-black-coffee-stock-super-tease.jpg">
+</div>
+
+<script>
+    let counter=0;
+    window.addEventListener('load', function () {
+	var src = document.getElementById("images").getElementsByTagName("img"),
+	img = function img (el,x,y) {
+		var d = document.createElement("div");
+		d.className     = "frame";
+		d.style.left    = 50 * x + "%";
+		d.style.top     = 50 * y + "%";
+		var img         = document.createElement("img");
+		img.className   = "img";
+        if(counter<5){
+            img.src=src[Math.floor(Math.random()*(src.length-1))].src;
+        }
+        else{
+            img.src         = src[Math.floor(Math.random()*src.length)].src;
+        }
+		img.onmousedown = function () {
+			div(this.parentNode);
+			this.parentNode.removeChild(this);
+		}
+		d.appendChild(img);
+		el.appendChild(d);
+    counter=counter+1;
+	},
+	div = function div (el) {
+		img(el,0,0);
+		img(el,1,0);
+		img(el,0,1);
+		img(el,1,1);
+	};
+	div(document.getElementById("screen"));
+	window.ondragstart = function() { return false; } 
+}, false);
+</script>
+
+<style>
+    html {
+	overflow: hidden;
+	touch-action: none;
+	content-zooming: none;
+}
+body {
+	margin:0;
+	padding:0;
+	background:#000;
+	position:absolute;
+	width:100%;
+	height:100%;
+}
+#screen {
+	position:absolute;
+	width:100%;
+	height:100%;
+}
+#screen .img{
+	position:absolute;
+	cursor:pointer;
+	width:100%;
+	height:100%;
+	user-select: none;
+}
+#screen .frame {
+	position:absolute;
+	width:50%;
+	height:50%;
+}
+#images {
+	display:none;
+}
+</style>
